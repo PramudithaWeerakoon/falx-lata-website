@@ -20,13 +20,6 @@ const Home: React.FC = () => {
         {/* VantaNetBackground covers the entire hero section */}
         <VantaNetBackground className="absolute inset-0 z-0" />
         
-        {/* Orange blob shape - adjusted z-index to bring it forward */}
-        <img 
-          src="/floating_image_03-1.png" 
-          alt="" 
-          className="absolute top-20 right-0 w-[400px] h-auto opacity-60 z-10 pointer-events-none"
-        />
-        
         <div className="container mx-auto px-6 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -66,7 +59,7 @@ const Home: React.FC = () => {
               </motion.h1>
               
               <motion.p 
-                className="text-xl md:text-2xl text-white mb-8 leading-relaxed"
+                className="text-xl md:text-2xl text-black mb-8 leading-relaxed"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -114,7 +107,7 @@ const Home: React.FC = () => {
                     />
                   ))}
                 </div>
-                <p className="text-white text-sm">
+                <p className="text-black text-sm">
                   Trusted by <span className="font-bold text-black">20+</span> companies
                 </p>
               </motion.div>
