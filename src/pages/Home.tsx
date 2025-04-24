@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-24 relative overflow-hidden">
+      <section className="pt-32 pb-32 relative overflow-hidden">
         {/* VantaNetBackground covers the entire hero section */}
         <VantaNetBackground className="absolute inset-0 z-0" />
         
@@ -138,13 +138,19 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Wavy, uneven bottom edge */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden z-10">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" className="w-full h-[70px]">
+        {/* Wavy, uneven bottom edge - increased height and adjusted position */}
+        <div className="absolute -bottom-1 left-0 w-full overflow-hidden z-10 line-height-0">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1440 320" 
+            preserveAspectRatio="none" 
+            className="w-full h-[120px]"
+            style={{ display: 'block' }}
+          >
             <path 
-              fill="#ffffff" 
+              fill="#f9fafb" 
               fillOpacity="1" 
-              d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,181.3C672,181,768,203,864,218.7C960,235,1056,245,1152,229.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+              d="M0,96L40,112C80,128,160,160,240,186.7C320,213,400,235,480,224C560,213,640,171,720,165.3C800,160,880,192,960,213.3C1040,235,1120,245,1200,218.7C1280,192,1360,128,1400,96L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
             ></path>
           </svg>
         </div>
