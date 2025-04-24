@@ -132,11 +132,7 @@ const Home: React.FC = () => {
                     repeatType: "reverse"
                   }}
                 />
-                <img 
-                  src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="HR Professionals" 
-                  className="rounded-2xl shadow-2xl w-full h-[600px] object-cover relative z-10"
-                />
+               
               </div>
             </motion.div>
           </div>
