@@ -21,15 +21,15 @@ const VantaNetBackground = ({ className, children }: VantaNetBackgroundProps) =>
           document.head.appendChild(threeScript);
           
           threeScript.onload = () => {
-            // Load VANTA.NET after THREE.js is loaded
+            // Load VANTA.GLOBE after THREE.js is loaded
             const vantaScript = document.createElement('script');
-            vantaScript.src = 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js';
+            vantaScript.src = 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js';
             document.head.appendChild(vantaScript);
             
             vantaScript.onload = () => {
               // Initialize VANTA effect after scripts are loaded
               if (window.VANTA) {
-                const effect = window.VANTA.NET({
+                const effect = window.VANTA.GLOBE({
                   el: vantaRef.current,
                   mouseControls: true,
                   touchControls: true,
@@ -38,10 +38,9 @@ const VantaNetBackground = ({ className, children }: VantaNetBackgroundProps) =>
                   minWidth: 200.00,
                   scale: 1.00,
                   scaleMobile: 1.00,
-                  color: 0xffff,
-                  backgroundColor: 0x267377,
-                  points: 20.00,
-                  maxDistance: 27.00
+                  color: 0x3aa2b6,
+                  color2: 0x38aa9,
+                  backgroundColor: 0xffffff
                 });
                 
                 setVantaEffect(effect);
