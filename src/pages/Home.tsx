@@ -138,9 +138,20 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Wavy, uneven bottom edge */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden z-10">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" className="w-full h-[70px]">
+            <path 
+              fill="#ffffff" 
+              fillOpacity="1" 
+              d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,181.3C672,181,768,203,864,218.7C960,235,1056,245,1152,229.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            ></path>
+          </svg>
+        </div>
+
+        {/* Scroll Indicator - positioned above the wave */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-20"
           animate={{
             y: [0, 10, 0]
           }}
