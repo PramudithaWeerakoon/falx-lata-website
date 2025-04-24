@@ -6,6 +6,7 @@ import TestimonialSection from '../components/home/TestimonialSection';
 import CtaSection from '../components/home/CtaSection';
 import VantaCloudsBackground from '../components/animations/VantaCloudsBackground';
 import RandomShapes from '../components/animations/RandomShapes';
+import VantaNetBackground from '../components/animations/VantaNetBackground';
 
 const Home: React.FC = () => {
   const scrollToServices = () => {
@@ -17,7 +18,7 @@ const Home: React.FC = () => {
     <>
       {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden">
-        <RandomShapes count={25} topHeavy={true} />
+        <VantaNetBackground className="absolute inset-0 z-0" />
         
         {/* Orange blob shape - adjusted z-index to bring it forward */}
         <img 
