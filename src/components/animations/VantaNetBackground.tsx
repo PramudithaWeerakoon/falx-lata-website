@@ -40,6 +40,7 @@ const VantaNetBackground = ({ className, children }: VantaNetBackgroundProps) =>
                   scaleMobile: 1.00,
                   color: 0x3aa2b6,
                   color2: 0x38aa9,
+                  size: 2.00,
                   backgroundColor: 0xffffff
                 });
                 

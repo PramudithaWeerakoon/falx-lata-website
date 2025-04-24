@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Users, Briefcase, BarChart, FileText, Award, Clock, ChevronDown } from 'lucide-react';
+import { ArrowRight, Briefcase, BarChart, FileText, Award, Clock, ChevronDown } from 'lucide-react';
 import TestimonialSection from '../components/home/TestimonialSection';
 import CtaSection from '../components/home/CtaSection';
 import RandomShapes from '../components/animations/RandomShapes';
@@ -132,20 +132,12 @@ const Home: React.FC = () => {
                     repeatType: "reverse"
                   }}
                 />
+                <img 
+                  src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                  alt="HR Professionals" 
+                  className="rounded-2xl shadow-2xl w-full h-[600px] object-cover relative z-10"
+                />
               </div>
-
-              <motion.div
-                className="absolute -bottom-8 -right-8 bg-white rounded-lg shadow-xl p-6 z-20"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1 }}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
-                    <Users className="text-primary-600" size={24} />
-                  </div>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -226,7 +218,7 @@ const Home: React.FC = () => {
               {
                 title: "Recruitment & Headhunting",
                 description: "Find the perfect talent for your organization with our specialized recruitment services.",
-                icon: <Users className="text-primary-600" size={40} />,
+                icon: <Briefcase className="text-primary-600" size={40} />,
                 link: "/services/recruitment-headhunting"
               },
               {
