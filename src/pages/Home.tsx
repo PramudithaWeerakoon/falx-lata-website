@@ -81,7 +81,7 @@ const Home: React.FC = () => {
                 </Link>
                 <button
                   onClick={scrollToServices}
-                  className="btn bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
+                  className="btn bg-white/10 backdrop-blur-sm text-black hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
                 >
                   Explore Services <ChevronDown size={18} className="ml-2" />
                 </button>
