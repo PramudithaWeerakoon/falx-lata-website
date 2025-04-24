@@ -115,7 +115,7 @@ const Home: React.FC = () => {
                   ))}
                 </div>
                 <p className="text-white text-sm">
-                  Trusted by <span className="font-bold text-white">20+</span> companies
+                  Trusted by <span className="font-bold text-black">20+</span> companies
                 </p>
               </motion.div>
             </motion.div>
@@ -150,10 +150,6 @@ const Home: React.FC = () => {
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
                     <Users className="text-primary-600" size={24} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Success Rate</p>
-                    <p className="text-xl font-bold text-primary-800">98%</p>
                   </div>
                 </div>
               </motion.div>
