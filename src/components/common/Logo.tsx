@@ -3,7 +3,7 @@ import React from 'react';
 const Logo: React.FC = () => {
   return (
     <div className="flex items-center">
-      <img src="/icon.png" alt="Falx Lata Icon" className="h-16 w-20 mr-2" />
+      <img src="/icon.png" alt="Falx Lata Icon" className="h-16 w-24 mr-2" />
       <div>
         <span className="font-serif font-bold text-xl tracking-wider text-primary-800">
           FALX <span className="text-accent-600">LATA</span>
