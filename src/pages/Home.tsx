@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Briefcase, BarChart, FileText, Award, Clock, ChevronDown } from 'lucide-react';
@@ -8,6 +8,24 @@ import RandomShapes from '../components/animations/RandomShapes';
 import VantaNetBackground from '../components/animations/VantaNetBackground';
 
 const Home: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Function to check if screen width is mobile
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768); // Consider screens below 768px as mobile
+    };
+    
+    // Check on initial render
+    checkIfMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup event listener
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services');
     servicesSection?.scrollIntoView({ behavior: 'smooth' });
@@ -17,8 +35,14 @@ const Home: React.FC = () => {
     <>
       {/* Hero Section */}
       <section className="pt-32 pb-32 relative overflow-hidden">
-        {/* VantaNetBackground covers the entire hero section */}
-        <VantaNetBackground className="absolute inset-0 z-0" />
+        {/* Conditionally render VantaNetBackground for desktop or RandomShapes for mobile */}
+        {isMobile ? (
+          <div className="absolute inset-0 z-0 bg-white">
+            <RandomShapes count={30} topHeavy={true} />
+          </div>
+        ) : (
+          <VantaNetBackground className="absolute inset-0 z-0" />
+        )}
         
         <div className="container mx-auto px-6 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
