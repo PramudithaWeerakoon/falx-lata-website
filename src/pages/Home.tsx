@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Users, Briefcase, BarChart, FileText, Award, Clock, ChevronDown } from 'lucide-react';
 import TestimonialSection from '../components/home/TestimonialSection';
 import CtaSection from '../components/home/CtaSection';
-import VantaCloudsBackground from '../components/animations/VantaCloudsBackground';
 import RandomShapes from '../components/animations/RandomShapes';
 import VantaNetBackground from '../components/animations/VantaNetBackground';
 
@@ -18,7 +17,8 @@ const Home: React.FC = () => {
     <>
       {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden">
-        <VantaNetBackground className="absolute inset-0 z-0" />
+        {/* RandomShapes remains for the overall hero section background */}
+        <RandomShapes count={25} topHeavy={true} />
         
         {/* Orange blob shape - adjusted z-index to bring it forward */}
         <img 
@@ -33,93 +33,98 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-white"
+              className="text-white relative"
             >
-              <motion.h1 
-                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Transform Your{' '}
-                <span className="relative">
-                  <motion.span 
-                    className="text-accent-400"
-                    animate={{ 
-                      color: ['#cca743', '#e6d3a1', '#cca743'],
-                    }}
-                    transition={{ 
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  >
-                    HR Management
-                  </motion.span>
-                  <motion.div
-                    className="absolute -bottom-2 left-0 w-full h-1 bg-accent-400"
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                  />
-                </span>
-              </motion.h1>
+              {/* VANTA.NET background specifically behind this text content */}
+              <VantaNetBackground className="absolute inset-0 -m-8 rounded-2xl z-0" />
               
-              <motion.p 
-                className="text-xl md:text-2xl text-black mb-8 leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                Partner with us to streamline your HR operations and unlock your team's full potential. Expert solutions tailored to your business needs.
-              </motion.p>
-
-              <motion.div 
-                className="flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <Link 
-                  to="/contact" 
-                  className="btn bg-accent-600 hover:bg-accent-700 text-white transform hover:scale-105 transition-all duration-300"
+              <div className="relative z-10">
+                <motion.h1 
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  Get Started <ArrowRight size={18} className="ml-2" />
-                </Link>
-                <button
-                  onClick={scrollToServices}
-                  className="btn bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
-                >
-                  Explore Services <ChevronDown size={18} className="ml-2" />
-                </button>
-              </motion.div>
-
-              <motion.div
-                className="mt-12 flex items-center gap-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <div className="flex -space-x-4">
-                  {[
-                    "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg",
-                    "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
-                    "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg"
-                  ].map((img, index) => (
-                    <img
-                      key={index}
-                      src={img}
-                      alt="Client"
-                      className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                  Transform Your{' '}
+                  <span className="relative">
+                    <motion.span 
+                      className="text-accent-400"
+                      animate={{ 
+                        color: ['#cca743', '#e6d3a1', '#cca743'],
+                      }}
+                      transition={{ 
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    >
+                      HR Management
+                    </motion.span>
+                    <motion.div
+                      className="absolute -bottom-2 left-0 w-full h-1 bg-accent-400"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
                     />
-                  ))}
-                </div>
-                <p className="text-black text-sm">
-                  Trusted by <span className="font-bold text-black">20+</span> companies
-                </p>
-              </motion.div>
-            </motion.div>
+                  </span>
+                </motion.h1>
+                
+                <motion.p 
+                  className="text-xl md:text-2xl text-white mb-8 leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  Partner with us to streamline your HR operations and unlock your team's full potential. Expert solutions tailored to your business needs.
+                </motion.p>
 
+                <motion.div 
+                  className="flex flex-wrap gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  <Link 
+                    to="/contact" 
+                    className="btn bg-accent-600 hover:bg-accent-700 text-white transform hover:scale-105 transition-all duration-300"
+                  >
+                    Get Started <ArrowRight size={18} className="ml-2" />
+                  </Link>
+                  <button
+                    onClick={scrollToServices}
+                    className="btn bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
+                  >
+                    Explore Services <ChevronDown size={18} className="ml-2" />
+                  </button>
+                </motion.div>
+
+                <motion.div
+                  className="mt-12 flex items-center gap-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <div className="flex -space-x-4">
+                    {[
+                      "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg",
+                      "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
+                      "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg"
+                    ].map((img, index) => (
+                      <img
+                        key={index}
+                        src={img}
+                        alt="Client"
+                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-white text-sm">
+                    Trusted by <span className="font-bold text-white">20+</span> companies
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+            
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
