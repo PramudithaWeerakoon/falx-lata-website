@@ -138,7 +138,7 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Wavy, uneven bottom edge - increased height and adjusted position */}
+        {/* Wavy, uneven bottom edge - first wave */}
         <div className="absolute -bottom-1 left-0 w-full overflow-hidden z-10 line-height-0">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -154,8 +154,25 @@ const Home: React.FC = () => {
             ></path>
           </svg>
         </div>
+        
+        {/* Second wave line in light gray, 1cm (~10px) below the first one */}
+        <div className="absolute -bottom-11 left-0 w-full overflow-hidden z-9 line-height-0">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 1440 320" 
+            preserveAspectRatio="none" 
+            className="w-full h-[100px]"
+            style={{ display: 'block' }}
+          >
+            <path 
+              fill="#e5e7eb" 
+              fillOpacity="0.7" 
+              d="M0,128L60,138.7C120,149,240,171,360,165.3C480,160,600,128,720,128C840,128,960,160,1080,170.7C1200,181,1320,171,1380,165.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+            ></path>
+          </svg>
+        </div>
 
-        {/* Scroll Indicator - positioned above the wave */}
+        {/* Scroll Indicator - positioned above the waves */}
         <motion.div
           className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-20"
           animate={{
