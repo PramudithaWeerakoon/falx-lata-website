@@ -1,5 +1,6 @@
 import React from 'react';
 import { Users, Briefcase, BarChart, Calendar } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
   // Mock data for the dashboard stats
@@ -79,9 +80,12 @@ const Dashboard: React.FC = () => {
             <button className="w-full py-3 bg-accent-50 text-accent-600 font-medium rounded-md hover:bg-accent-100 transition-colors text-left px-4">
               Schedule Meeting
             </button>
-            <button className="w-full py-3 bg-green-50 text-green-600 font-medium rounded-md hover:bg-green-100 transition-colors text-left px-4">
+            <Link 
+              to="/admin/careers" 
+              className="block w-full py-3 bg-green-50 text-green-600 font-medium rounded-md hover:bg-green-100 transition-colors text-left px-4"
+            >
               Post Job Opening
-            </button>
+            </Link>
             <button className="w-full py-3 bg-gray-50 text-gray-600 font-medium rounded-md hover:bg-gray-100 transition-colors text-left px-4">
               Generate Report
             </button>
