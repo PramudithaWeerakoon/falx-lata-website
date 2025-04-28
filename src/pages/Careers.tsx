@@ -1,106 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CheckCircle, Clock, MapPin, Briefcase, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import AnimatedShapes from '../components/animations/AnimatedShapes';
-import VantaCloudsBackground from '../components/animations/VantaCloudsBackground';
-
-const openPositions = [
-  {
-    id: 1,
-    title: 'Senior HR Consultant',
-    department: 'HR Consulting',
-    location: 'Colombo, Sri Lanka',
-    type: 'Full Time',
-    description: 'We are looking for an experienced HR Consultant to join our team and provide expert advice to our clients on various HR matters.',
-    responsibilities: [
-      'Conduct HR assessments and develop strategies for clients',
-      'Provide expert advice on employment laws and regulations',
-      'Design and implement HR policies and procedures',
-      'Lead HR projects and change management initiatives',
-      'Facilitate training sessions on HR best practices'
-    ],
-    requirements: [
-      'Bachelor\'s degree in Human Resources, Business Administration, or related field',
-      'Minimum 5 years of experience in HR consulting or HR management',
-      'Strong knowledge of employment laws and regulations',
-      'Excellent communication and presentation skills',
-      'SHRM or CIPD certification is a plus'
-    ]
-  },
-  {
-    id: 2,
-    title: 'Recruitment Specialist',
-    department: 'Recruitment',
-    location: 'Colombo, Sri Lanka',
-    type: 'Full Time',
-    description: 'We are seeking a talented Recruitment Specialist to help our clients find and hire exceptional talent across various industries.',
-    responsibilities: [
-      'Source and screen candidates using various channels',
-      'Conduct preliminary interviews and assessments',
-      'Coordinate recruitment processes and schedules',
-      'Develop and maintain relationships with potential candidates',
-      'Provide regular updates to clients on recruitment progress'
-    ],
-    requirements: [
-      'Bachelor\'s degree in Human Resources, Psychology, or related field',
-      '2+ years of experience in recruitment or talent acquisition',
-      'Proficiency in applicant tracking systems and recruitment tools',
-      'Strong networking and relationship-building skills',
-      'Excellent communication and negotiation abilities'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Payroll Administrator',
-    department: 'Payroll Services',
-    location: 'Colombo, Sri Lanka',
-    type: 'Full Time',
-    description: 'We are looking for a detail-oriented Payroll Administrator to join our team and manage payroll processing for our clients.',
-    responsibilities: [
-      'Process monthly payroll for multiple clients',
-      'Calculate salaries, benefits, and deductions',
-      'Ensure compliance with tax regulations and reporting requirements',
-      'Resolve payroll discrepancies and employee inquiries',
-      'Maintain accurate payroll records and documentation'
-    ],
-    requirements: [
-      'Bachelor\'s degree in Accounting, Finance, or related field',
-      'Minimum 3 years of experience in payroll administration',
-      'Strong knowledge of payroll software and systems',
-      'Excellent attention to detail and accuracy',
-      'Knowledge of local tax laws and regulations'
-    ]
-  },
-  {
-    id: 4,
-    title: 'HR Training Coordinator',
-    department: 'Training & Development',
-    location: 'Colombo, Sri Lanka',
-    type: 'Part Time',
-    description: 'We are seeking an HR Training Coordinator to help organize and implement training programs for our clients and their employees.',
-    responsibilities: [
-      'Coordinate training logistics and schedules',
-      'Assist in developing training materials and resources',
-      'Maintain training databases and records',
-      'Collect and analyze training feedback',
-      'Support trainers with administrative tasks'
-    ],
-    requirements: [
-      'Bachelor\'s degree in Human Resources, Education, or related field',
-      '1+ years of experience in training coordination or HR',
-      'Strong organizational and multitasking abilities',
-      'Proficiency in MS Office and learning management systems',
-      'Excellent interpersonal and communication skills'
-    ]
-  }
-];
+import { Career } from '../@types/career';
 
 const Careers: React.FC = () => {
-  const [expandedJob, setExpandedJob] = useState<number | null>(null);
+  const [expandedJob, setExpandedJob] = useState<string | null>(null);
+  const [careers, setCareers] = useState<Career[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
-  const toggleJob = (id: number) => {
+  useEffect(() => {
+    const fetchCareers = async () => {
+      try {
+        const response = await fetch('/api/careers');
+        if (!response.ok) {
+          throw new Error('Failed to fetch careers');
+        }
+        const data = await response.json();
+        setCareers(data);
+      } catch (err) {
+        console.error('Error fetching careers:', err);
+        setError('Failed to load career opportunities. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCareers();
+  }, []);
+  
+  const toggleJob = (id: string) => {
     setExpandedJob(expandedJob === id ? null : id);
+  };
+
+  // Format requirements for display - split by newlines
+  const formatRequirements = (requirements: string): string[] => {
+    return requirements.split('\n').filter(item => item.trim() !== '');
   };
 
   return (
@@ -233,80 +170,97 @@ const Careers: React.FC = () => {
             </motion.p>
           </div>
           
-          <div className="space-y-6">
-            {openPositions.map((job) => (
-              <motion.div
-                key={job.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
-              >
-                <div 
-                  className="p-6 cursor-pointer"
-                  onClick={() => toggleJob(job.id)}
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            </div>
+          ) : error ? (
+            <div className="text-center py-8 bg-red-50 rounded-lg">
+              <p className="text-red-600">{error}</p>
+            </div>
+          ) : careers.length === 0 ? (
+            <div className="text-center py-12 bg-gray-50 rounded-lg">
+              <p className="text-xl text-gray-600">No open positions currently available. Please check back later.</p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {careers.map((job) => (
+                <motion.div
+                  key={job.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  className="bg-white rounded-lg shadow-md overflow-hidden"
                 >
-                  <div className="flex flex-col md:flex-row md:items-center justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-primary-800">{job.title}</h3>
-                      <p className="text-gray-600">{job.department}</p>
-                    </div>
-                    
-                    <div className="flex flex-col sm:flex-row sm:items-center mt-4 md:mt-0 space-y-2 sm:space-y-0 sm:space-x-4">
-                      <div className="flex items-center text-gray-600">
-                        <MapPin size={16} className="mr-1" />
-                        <span className="text-sm">{job.location}</span>
+                  <div 
+                    className="p-6 cursor-pointer"
+                    onClick={() => toggleJob(job.id)}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold text-primary-800">{job.title}</h3>
+                        <p className="text-gray-600">{job.department}</p>
                       </div>
                       
-                      <div className="flex items-center text-gray-600">
-                        <Clock size={16} className="mr-1" />
-                        <span className="text-sm">{job.type}</span>
+                      <div className="flex flex-col sm:flex-row sm:items-center mt-4 md:mt-0 space-y-2 sm:space-y-0 sm:space-x-4">
+                        <div className="flex items-center text-gray-600">
+                          <MapPin size={16} className="mr-1" />
+                          <span className="text-sm">{job.location}</span>
+                        </div>
+                        
+                        <div className="flex items-center text-gray-600">
+                          <Clock size={16} className="mr-1" />
+                          <span className="text-sm">{job.type}</span>
+                        </div>
+                        
+                        <button className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-50 text-primary-600 ml-2">
+                          {expandedJob === job.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {expandedJob === job.id && (
+                    <div className="px-6 pb-6 border-t border-gray-100 pt-4">
+                      <p className="text-gray-700 mb-6">{job.description}</p>
+
+                      <div className="mb-6">
+                        <h4 className="text-lg font-bold mb-3 text-primary-700">Requirements:</h4>
+                        <ul className="space-y-2">
+                          {formatRequirements(job.requirements).map((item, index) => (
+                            <li key={index} className="flex items-start">
+                              <span className="text-primary-600 mr-2">•</span>
+                              <span className="text-gray-700">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {job.salary && (
+                        <div className="mb-6">
+                          <h4 className="text-lg font-bold mb-3 text-primary-700">Salary Range:</h4>
+                          <p className="text-gray-700">{job.salary}</p>
+                        </div>
+                      )}
+                      
+                      <div className="flex items-center text-gray-600 mb-6">
+                        <Clock size={16} className="mr-2" />
+                        <span>
+                          Posted: {new Date(job.postedAt).toLocaleDateString()}
+                          {job.closingDate && ` • Closing: ${new Date(job.closingDate).toLocaleDateString()}`}
+                        </span>
                       </div>
                       
-                      <button className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-50 text-primary-600 ml-2">
-                        {expandedJob === job.id ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                      </button>
+                      <Link to="/contact" className="btn btn-primary">
+                        Apply Now <ArrowRight size={18} className="ml-2" />
+                      </Link>
                     </div>
-                  </div>
-                </div>
-                
-                {expandedJob === job.id && (
-                  <div className="px-6 pb-6 border-t border-gray-100 pt-4">
-                    <p className="text-gray-700 mb-6">{job.description}</p>
-                    
-                    <div className="mb-6">
-                      <h4 className="text-lg font-bold mb-3 text-primary-700">Key Responsibilities:</h4>
-                      <ul className="space-y-2">
-                        {job.responsibilities.map((item, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="text-primary-600 mr-2">•</span>
-                            <span className="text-gray-700">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div className="mb-6">
-                      <h4 className="text-lg font-bold mb-3 text-primary-700">Requirements:</h4>
-                      <ul className="space-y-2">
-                        {job.requirements.map((item, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="text-primary-600 mr-2">•</span>
-                            <span className="text-gray-700">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <Link to="/contact" className="btn btn-primary">
-                      Apply Now <ArrowRight size={18} className="ml-2" />
-                    </Link>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          )}
           
           <div className="mt-12 text-center">
             <p className="text-lg text-gray-600 mb-6">

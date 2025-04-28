@@ -1,9 +1,20 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import type { Plugin } from 'vite';
+
+// Custom middleware plugin for API routes
+const expressMiddleware = (): Plugin => ({
+  name: 'express-middleware',
+  configureServer: async (server) => {
+    // Import server module dynamically to avoid bundling Node.js dependencies
+    const { default: app } = await import('./src/server');
+    server.middlewares.use('/api', app);
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), expressMiddleware()],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },

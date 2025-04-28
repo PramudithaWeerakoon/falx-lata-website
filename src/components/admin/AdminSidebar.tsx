@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Briefcase, FileText, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, Briefcase, FileText, Settings, LogOut, Clipboard } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Logo from '../common/Logo';
 
@@ -10,6 +10,7 @@ const AdminSidebar: React.FC = () => {
 
   const sidebarItems = [
     { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin' },
+    { name: 'Careers', icon: <Clipboard size={20} />, path: '/admin/careers' },
     { name: 'Clients', icon: <Users size={20} />, path: '/admin/clients' },
     { name: 'Services', icon: <Briefcase size={20} />, path: '/admin/services' },
     { name: 'Content', icon: <FileText size={20} />, path: '/admin/content' },

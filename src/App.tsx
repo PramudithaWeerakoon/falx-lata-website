@@ -16,6 +16,7 @@ import Contact from './pages/Contact';
 import Careers from './pages/Careers';
 import Login from './pages/Login';
 import Dashboard from './pages/admin/Dashboard';
+import CareerAdmin from './pages/admin/CareersAdmin';
 import NotFound from './pages/NotFound';
 
 const ScrollToTop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -41,6 +42,7 @@ function App() {
             </Route>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
+              <Route path="careers" element={<CareerAdmin />} />
             </Route>
           </Routes>
         </ScrollToTop>
