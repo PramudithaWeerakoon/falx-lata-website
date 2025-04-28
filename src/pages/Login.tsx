@@ -1,12 +1,30 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
 import AnimatedShapes from '../components/animations/AnimatedShapes';
+import { useAuth } from '../context/AuthContext';
 
 const Login: React.FC = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setLoginError(null);
+    const success = await login(email, password);
+    setIsLoading(false);
+    if (success) {
+      navigate('/admin');
+    } else {
+      setLoginError('Invalid email or password');
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden bg-primary-50">
@@ -58,16 +76,16 @@ const Login: React.FC = () => {
             </div>
           )}
           
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <label htmlFor="email" className="sr-only">Email address</label>
                 <input
                   id="email"
                   type="email"
-                  className={`appearance-none rounded-none relative block w-full px-3 py-3 border ${
-                    'border-gray-300'
-                  } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm`}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className={`appearance-none rounded-none relative block w-full px-3 py-3 border ${'border-gray-300'} placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm`}
                   placeholder="Email address"
                 />
               </div>
@@ -76,9 +94,9 @@ const Login: React.FC = () => {
                 <input
                   id="password"
                   type="password"
-                  className={`appearance-none rounded-none relative block w-full px-3 py-3 border ${
-                    'border-gray-300'
-                  } placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm`}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className={`appearance-none rounded-none relative block w-full px-3 py-3 border ${'border-gray-300'} placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm`}
                   placeholder="Password"
                 />
               </div>

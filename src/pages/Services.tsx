@@ -36,10 +36,9 @@ const Services: React.FC = () => {
         {/* Wave Line */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden" style={{ height: "100px" }}>
           <svg
-            className="absolute bottom-0 w-full"
+            className="absolute bottom-0 w-full animate-wave"
             viewBox="0 0 1200 120"
             preserveAspectRatio="none"
-            className="animate-wave"
           >
             {/* First wave layer */}
             <path 
